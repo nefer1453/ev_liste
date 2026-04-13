@@ -4,31 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Ev Liste PWA</title>
+    <title>Dinamik Ev Liste</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         :root { --header-h: 70px; --footer-h: 160px; }
-        html, body { height: 100vh; height: -webkit-fill-available; margin: 0; padding: 0; overflow: hidden; background: #f1f5f9; }
-        .app-grid { display: grid; grid-template-rows: var(--header-h) 1fr var(--footer-h); height: 100vh; width: 100%; }
+        html, body { height: 100vh; margin: 0; padding: 0; overflow: hidden; background: #f8fafc; }
+        .app-grid { display: grid; grid-template-rows: var(--header-h) 1fr var(--footer-h); height: 100vh; }
         .scroll-container { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 12px; }
         [x-cloak] { display: none !important; }
         .active-btn { border-left: 10px solid #059669 !important; background: #f0fdf4; }
-        header { padding-top: env(safe-area-inset-top); }
-        footer { padding-bottom: env(safe-area-inset-bottom); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body x-data="app()">
+<body x-data="app()" x-init="loadData()">
     <div class="app-grid">
         <header class="bg-white shadow-sm flex items-center justify-between px-6 z-50">
-            <div class="flex flex-col text-left">
-                <h1 class="text-xl font-black italic text-emerald-900 leading-none uppercase">Ev Liste</h1>
-                <span class="text-[8px] font-bold text-slate-400 tracking-widest uppercase mt-1">Full Envanter v12.0</span>
+            <div class="flex flex-col">
+                <h1 class="text-xl font-black italic text-emerald-900 leading-none">EV LİSTE</h1>
+                <span class="text-[8px] font-bold text-slate-400 tracking-widest uppercase">Veri Tabanı Bağlı Mod</span>
             </div>
-            <button @click="clearAll()" class="bg-red-50 text-red-500 px-4 py-2 rounded-2xl text-[10px] font-black border border-red-100 uppercase">Sıfırla</button>
+            <button @click="clearAll()" class="bg-red-50 text-red-500 px-4 py-2 rounded-2xl text-[10px] font-black uppercase border border-red-100">Sıfırla</button>
         </header>
 
         <main class="scroll-container">
@@ -37,21 +32,20 @@
                     <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 overflow-hidden">
                         <button @click="openGroup === mIdx ? openGroup = null : openGroup = mIdx" 
                                 class="w-full p-6 flex justify-between items-center transition-all" :class="openGroup === mIdx ? 'active-btn' : ''">
-                            <div class="flex items-center gap-4 text-left">
+                            <div class="flex items-center gap-4">
                                 <span class="text-4xl" x-text="main.icon"></span>
-                                <span class="font-black text-slate-800 uppercase text-[12px] tracking-tighter" x-text="main.title"></span>
+                                <span class="font-black text-slate-800 uppercase text-[12px]" x-text="main.title"></span>
                             </div>
-                            <span class="text-slate-300 font-bold" x-text="openGroup === mIdx ? '−' : '＋'"></span>
                         </button>
-                        <div x-show="openGroup === mIdx" x-cloak class="p-4 bg-slate-50 border-t border-slate-100 space-y-8">
+                        <div x-show="openGroup === mIdx" x-cloak class="p-4 bg-slate-50 border-t border-slate-100 space-y-6">
                             <template x-for="sub in main.subs">
                                 <div>
-                                    <h3 class="text-[10px] font-black text-emerald-700 mb-4 uppercase border-b-2 border-emerald-200 pb-1" x-text="sub.name"></h3>
+                                    <h3 class="text-[10px] font-black text-emerald-700 mb-3 uppercase border-b-2 border-emerald-100 pb-1" x-text="sub.name"></h3>
                                     <div class="grid grid-cols-3 gap-2">
                                         <template x-for="item in sub.items">
                                             <button @click="askAmount(item.n)" class="bg-white p-3 rounded-2xl border shadow-sm flex flex-col items-center active:scale-90 transition-all">
                                                 <span class="text-2xl" x-text="item.i"></span>
-                                                <span class="text-[9px] font-black text-slate-600 mt-2 uppercase text-center leading-tight" x-text="item.n"></span>
+                                                <span class="text-[9px] font-black text-slate-600 mt-2 uppercase text-center" x-text="item.n"></span>
                                             </button>
                                         </template>
                                     </div>
@@ -63,17 +57,16 @@
             </div>
         </main>
 
-        <footer class="bg-white border-t p-4 flex flex-col justify-between shadow-inner z-50">
+        <footer class="bg-white border-t p-4 flex flex-col justify-between z-50">
             <div class="flex gap-2 overflow-x-auto pb-3 no-scrollbar items-center min-h-[50px]">
                 <template x-for="(item, index) in items" :key="index">
                     <button @click="removeItem(index)" class="flex-shrink-0 bg-slate-900 text-white text-[10px] font-bold px-4 py-2.5 rounded-full flex items-center gap-2">
                         <span x-text="item"></span> <span class="text-red-400">✕</span>
                     </button>
                 </template>
-                <div x-show="items.length === 0" class="text-[10px] text-slate-300 italic px-2">Eksik seçimi yapın...</div>
             </div>
-            <button @click="shareList()" class="w-full bg-[#16a34a] text-white p-5 rounded-[2rem] font-black shadow-lg flex justify-between items-center px-8 active:scale-95 transition-all">
-                <span class="text-xs uppercase tracking-[0.2em]">WhatsApp İle Gönder</span>
+            <button @click="shareList()" class="w-full bg-[#16a34a] text-white p-5 rounded-[2rem] font-black shadow-lg flex justify-between items-center px-8 active:scale-95 transition-all text-xs tracking-widest">
+                <span>GÖNDER</span>
                 <span class="bg-white/20 px-3 py-1 rounded-full text-[10px]" x-text="items.length"></span>
             </button>
         </footer>
@@ -86,69 +79,28 @@
                 <template x-for="n in [1,2,3,4,5,10]">
                     <button @click="confirmAdd(n + ' Adet')" class="bg-slate-100 p-4 rounded-3xl font-black active:bg-green-600 active:text-white" x-text="n"></button>
                 </template>
-                <button @click="confirmAdd('0.5 KG')" class="bg-blue-50 p-4 rounded-3xl font-bold text-blue-600 text-xs text-center">0.5 KG</button>
                 <button @click="confirmAdd('1 KG')" class="bg-blue-50 p-4 rounded-3xl font-bold text-blue-600 text-xs">1 KG</button>
                 <button @click="confirmAdd('Paket')" class="bg-orange-50 p-4 rounded-3xl font-bold text-orange-600 text-[10px]">PAKET</button>
             </div>
-            <button @click="showModal = false" class="w-full text-slate-400 mt-10 font-bold text-[10px] uppercase text-center tracking-widest">Vazgeç</button>
+            <button @click="showModal = false" class="w-full text-slate-400 mt-10 font-bold text-[10px] uppercase text-center">Vazgeç</button>
         </div>
     </div>
 
     <script>
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
         function app() {
             return {
-                openGroup: null, showModal: false, selectedItem: '',
+                menu: [], openGroup: null, showModal: false, selectedItem: '',
                 items: JSON.parse(localStorage.getItem('eksikler') || '[]'),
-                menu: [
-                    { title: 'Şarküteri & Sütlük', icon: '🧀', subs: [
-                        { name: 'Peynirler', items: [{i:'🧀',n:'Beyaz Peynir'},{i:'🧀',n:'Kasar'},{i:'🧀',n:'Suzme'},{i:'🧀',n:'Labne'},{i:'🧀',n:'Tulum'},{i:'🧀',n:'Dil/Orgu'},{i:'🧀',n:'Lor'},{i:'🧀',n:'Hellim'},{i:'🧀',n:'Cecil'},{i:'🧀',n:'Krem Peynir'}] },
-                        { name: 'Sut & Yogurt', items: [{i:'🥛',n:'Sut'},{i:'🥛',n:'Yogurt'},{i:'🥛',n:'Suzme Yogurt'},{i:'🥛',n:'Ayran'},{i:'🥛',n:'Kefir'},{i:'🥛',n:'Krema'},{i:'🧈',n:'Tereyagi'},{i:'🥞',n:'Kaymak'}] },
-                        { name: 'Kahvaltilik Et', items: [{i:'🥓',n:'Sucuk'},{i:'🥓',n:'Salam'},{i:'🥓',n:'Pastirma'},{i:'🥓',n:'Kavurma'},{i:'🥓',n:'Sosis'}] },
-                        { name: 'Zeytin & Yumurta', items: [{i:'🫒',n:'Siyah Zeytin'},{i:'🫒',n:'Yesil Zeytin'},{i:'🫒',n:'Kirma'},{i:'🍳',n:'Yumurta'}] },
-                        { name: 'Surulebilir', items: [{i:'🍯',n:'Bal'},{i:'🍓',n:'Recel'},{i:'🍫',n:'Cokokrem'},{i:'🥞',n:'Tahin'},{i:'🥞',n:'Pekmez'},{i:'🥜',n:'Fistik Ezmesi'}] }
-                    ]},
-                    { title: 'Manav (Taze)', icon: '🍎', subs: [
-                        { name: 'Sebzeler', items: [{i:'🍅',n:'Domates'},{i:'🥒',n:'Salatalik'},{i:'🥔',n:'Patates'},{i:'🧅',n:'Sogan'},{i:'🫑',n:'Biber'},{i:'🍆',n:'Patlican'},{i:'🥕',n:'Havuc'},{i:'🍄',n:'Mantar'},{i:'🌽',n:'Misir'},{i:'🥦',n:'Brokoli'}] },
-                        { name: 'Meyveler', items: [{i:'🍌',n:'Muz'},{i:'🍎',n:'Elma'},{i:'🍓',n:'Cilek'},{i:'🍊',n:'Portakal'},{i:'🍋',n:'Limon'},{i:'🥑',n:'Avokado'},{i:'🍇',n:'Uzum'},{i:'🍉',n:'Karpuz'}] },
-                        { name: 'Yesillik', items: [{i:'🥬',n:'Marul'},{i:'🌿',n:'Maydanoz'},{i:'🌿',n:'Dereotu'},{i:'🥗',n:'Roka'},{i:'🌿',n:'Nane'},{i:'🥬',n:'Ispanak'},{i:'🥗',n:'Taze Sogan'},{i:'🥗',n:'Semizotu'}] }
-                    ]},
-                    { title: 'Bakliyat & Gıda', icon: '🌾', subs: [
-                        { name: 'Bakliyat', items: [{i:'🍚',n:'Pirinc'},{i:'🍚',n:'Bulgur'},{i:'🍵',n:'Mercimek'},{i:'🍲',n:'Nohut'},{i:'🍲',n:'Fasulye'},{i:'🍝',n:'Makarna'},{i:'🍜',n:'Sehriye'}] },
-                        { name: 'Yag & Salca', items: [{i:'🌻',n:'Aycicek Yagi'},{i:'🫒',n:'Zeytinyagi'},{i:'🥫',n:'Domates Salca'},{i:'🥫',n:'Biber Salca'}] },
-                        { name: 'Temel Gida', items: [{i:'🌾',n:'Un'},{i:'🧂',n:'Seker'},{i:'🧂',n:'Tuz'},{i:'🍞',n:'Ekmek'},{i:'🥫',n:'Ketcap'},{i:'🥫',n:'Mayonez'}] },
-                        { name: 'Pasta Malz.', items: [{i:'📦',n:'Maya'},{i:'📦',n:'Kabartma Tozu'},{i:'📦',n:'Vanilya'},{i:'🍮',n:'Puding'},{i:'🥥',n:'Hindistan Cevizi'}] }
-                    ]},
-                    { title: 'Kasap & Tavuk', icon: '🥩', subs: [
-                        { name: 'Et Cesitleri', items: [{i:'🥩',n:'Kiyma'},{i:'🥩',n:'Kusbasi'},{i:'🥩',n:'Antrikot'},{i:'🥩',n:'Pirzola'},{i:'🥩',n:'Ciger'},{i:'🍗',n:'Gogus'},{i:'🍗',n:'Baget'},{i:'🍗',n:'Kanat'},{i:'🐟',n:'Balik'}] }
-                    ]},
-                    { title: 'Baharat & Cesni', icon: '🌶️', subs: [
-                        { name: 'Baharat', items: [{i:'🌶️',n:'Pul Biber'},{i:'🧂',n:'Karabiber'},{i:'🌿',n:'Kekik'},{i:'🌾',n:'Kimyon'},{i:'🔴',n:'Sumak'},{i:'🍂',n:'Tarcin'},{i:'🟡',n:'Kori'}] },
-                        { name: 'Soslar', items: [{i:'🧪',n:'Nar Eksisi'},{i:'🍾',n:'Sirke'},{i:'🍋',n:'Limon Sosu'},{i:'📦',n:'Bulyon'}] }
-                    ]},
-                    { title: 'Deterjan & Kagit', icon: '🧼', subs: [
-                        { name: 'Temizlik', items: [{i:'🧼',n:'Camasir Det.'},{i:'🧽',n:'Bulasi Tab.'},{i:'🧴',n:'Yumusatici'},{i:'🧪',n:'Camasir Suyu'},{i:'🪠',n:'Yuzey Temiz.'},{i:'🧼',n:'Arap Sabunu'}] },
-                        { name: 'Kagit Grubu', items: [{i:'🧻',n:'Tuvalet Kagidi'},{i:'🧻',n:'Kagit Havlu'},{i:'🤧',n:'Pecete'},{i:'🧷',n:'Islak Mendil'}] }
-                    ]},
-                    { title: 'Bakım & Ev', icon: '🧴', subs: [
-                        { name: 'Kisisel Bakim', items: [{i:'🧴',n:'Sampuan'},{i:'🧴',n:'Dus Jeli'},{i:'🧼',n:'Sivi Sabun'},{i:'🪥',n:'Macun/Firca'},{i:'🧴',n:'Deodorant'},{i:'🪒',n:'Jilet'}] },
-                        { name: 'Ev Gerecleri', items: [{i:'🗑️',n:'Cop Poseti'},{i:'🎞️',n:'Strec Film'},{i:'🔥',n:'Pisirme Kagidi'},{i:'🔋',n:'Pil'},{i:'💡',n:'Ampul'}] }
-                    ]},
-                    { title: 'Atıştırmalık & İçecek', icon: '☕', subs: [
-                        { name: 'Icecek', items: [{i:'☕',n:'Cay'},{i:'☕',n:'Kahve'},{i:'💧',n:'Su'},{i:'🥤',n:'Kola'},{i:'🥤',n:'Fanta/Gazoz'},{i:'🧊',n:'Soda'},{i:'🧃',n:'Meyve Suyu'}] },
-                        { name: 'Abur Cubur', items: [{i:'🍫',n:'Cikolata'},{i:'🍪',n:'Biskuvi'},{i:'🍿',n:'Cips'},{i:'🥜',n:'Kuruyemis'},{i:'🧁',n:'Kek'},{i:'🍬',n:'Sekerleme'}] }
-                    ]}
-                ],
+                async loadData() {
+                    const res = await fetch('data.json');
+                    this.menu = await res.json();
+                },
                 askAmount(name) { this.selectedItem = name; this.showModal = true; },
                 confirmAdd(amount) { this.items.unshift(this.selectedItem + " (" + amount + ")"); this.save(); this.showModal = false; },
                 removeItem(index) { this.items.splice(index, 1); this.save(); },
                 clearAll() { if(confirm('Sıfırla?')) { this.items = []; this.save(); } },
                 save() { localStorage.setItem('eksikler', JSON.stringify(this.items)); },
-                shareList() {
-                    if (this.items.length === 0) return alert('Liste boş!');
-                    let text = "🛒 *MARKET LİSTESİ* 🛒\n\n" + this.items.map(i => "✅ " + i).join("\n");
-                    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
-                }
+                shareList() { let text = "*MARKET LİSTESİ*\n" + this.items.join("\n"); window.open("https://wa.me/?text=" + encodeURIComponent(text)); }
             }
         }
     </script>

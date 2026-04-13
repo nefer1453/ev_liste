@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Şarküteri & Sütlük",
+    "icon": "🧀",
+    "subs": [
+      { "name": "Peynir Grubu", "items": [{"i":"🧀","n":"Beyaz Peynir"},{"i":"🧀","n":"Taze Kasar"},{"i":"🧀","n":"Eski Kasar"},{"i":"🧀","n":"Suzme Peynir"},{"i":"🧀","n":"Labne"},{"i":"🧀","n":"Tulum Peyniri"},{"i":"🧀","n":"Hellim"},{"i":"🧀","n":"Orgu/Dil"},{"i":"🧀","n":"Cecil"},{"i":"🧀","n":"Krem Peynir"}] },
+      { "name": "Süt & Yoğurt", "items": [{"i":"🥛","n":"Sut"},{"i":"🥛","n":"Laktosuz Sut"},{"i":"🥛","n":"Yogurt"},{"i":"🥛","n":"Suzme Yogurt"},{"i":"🥛","n":"Ayran"},{"i":"🥛","n":"Kefir"},{"i":"🥛","n":"Krema"},{"i":"🧈","n":"Tereyagi"},{"i":"🥞","n":"Kaymak"}] },
+      { "name": "Sarküteri Et", "items": [{"i":"🥓","n":"Kangal Sucuk"},{"i":"🥓","n":"Parmak Sucuk"},{"i":"🥓","n":"Macar Salam"},{"i":"🥓","n":"Fistikli Salam"},{"i":"🥓","n":"Sosis"},{"i":"🥓","n":"Pastirma"},{"i":"🥓","n":"Kavurma"},{"i":"🥓","n":"Jambon"}] },
+      { "name": "Zeytin & Yumurta", "items": [{"i":"🫒","n":"Siyah Zeytin"},{"i":"🫒","n":"Yesil Zeytin"},{"i":"🫒","n":"Biberli Zeytin"},{"i":"🍳","n":"Yumurta"}] },
+      { "name": "Sürülebilir", "items": [{"i":"🍯","n":"Bal"},{"i":"🍓","n":"Recel"},{"i":"🍫","n":"Cokokrem"},{"i":"🥞","n":"Tahin"},{"i":"🥞","n":"Pekmez"},{"i":"🥜","n":"Fistik Ezmesi"}] }
+    ]
+  },
+  {
+    "title": "Manav (Taze)",
+    "icon": "🍎",
+    "subs": [
+      { "name": "Sebzeler", "items": [{"i":"🍅","n":"Domates"},{"i":"🍅","n":"Cherry Domates"},{"i":"🥒","n":"Salatalik"},{"i":"🥔","n":"Patates"},{"i":"🧅","n":"Kuru Sogan"},{"i":"🧅","n":"Kirmizi Sogan"},{"i":"🫑","n":"Sivri Biber"},{"i":"🫑","n":"Dolma Biber"},{"i":"🫑","n":"Kapya Biber"},{"i":"🥦","n":"Brokoli"},{"i":"🍆","n":"Patlican"},{"i":"🥕","n":"Havuc"},{"i":"🌽","n":"Misir"},{"i":"🍄","n":"Mantar"},{"i":"🎃","n":"Kabak"}] },
+      { "name": "Meyveler", "items": [{"i":"🍌","n":"Muz"},{"i":"🍎","n":"Elma"},{"i":"🍓","n":"Cilek"},{"i":"🍊","n":"Portakal"},{"i":"🍋","n":"Limon"},{"i":"🍐","n":"Armut"},{"i":"🥝","n":"Kivi"},{"i":"🥑","n":"Avokado"},{"i":"🍉","n":"Kavun/Karpuz"}] },
+      { "name": "Yeşillik", "items": [{"i":"🥬","n":"Marul"},{"i":"🌿","n":"Maydanoz"},{"i":"🌿","n":"Dereotu"},{"i":"🥗","n":"Roka"},{"i":"🌿","n":"Nane"},{"i":"🥬","n":"Ispanak"},{"i":"🥗","n":"Taze Sogan"},{"i":"🥬","n":"Semizotu"}] }
+    ]
+  },
+  {
+    "title": "Bakliyat & Gıda",
+    "icon": "🌾",
+    "subs": [
+      { "name": "Bakliyat", "items": [{"i":"🍚","n":"Baldo Pirinc"},{"i":"🍚","n":"Osmancik Pirinc"},{"i":"🍚","n":"Pilavlik Bulgur"},{"i":"🍚","n":"Kofterlik Bulgur"},{"i":"🍵","n":"Kirmizi Mercimek"},{"i":"🍵","n":"Yesil Mercimek"},{"i":"🍲","n":"Nohut"},{"i":"🍲","n":"Kuru Fasulye"}] },
+      { "name": "Temel Gıda", "items": [{"i":"🍝","n":"Makarna"},{"i":"🍜","n":"Eriste/Sehriye"},{"i":"🌻","n":"Aycicek Yagi"},{"i":"🫒","n":"Zeytinyagi"},{"i":"🥫","n":"Domates Salca"},{"i":"🥫","n":"Biber Salca"},{"i":"🌾","n":"Un"},{"i":"🧂","n":"Seker"},{"i":"🧂","n":"Tuz"},{"i":"🍞","n":"Ekmek"}] },
+      { "name": "Pasta Malz.", "items": [{"i":"📦","n":"Maya"},{"i":"📦","n":"Kabartma Tozu"},{"i":"📦","n":"Vanilya"},{"i":"🍮","n":"Puding"},{"i":"🥥","n":"Hindistan Cevizi"},{"i":"🍫","n":"Kakaolu Sos"},{"i":"📦","n":"Nisasta"}] }
+    ]
+  },
+  {
+    "title": "Baharat & Sos",
+    "icon": "🌶️",
+    "subs": [
+      { "name": "Baharatlar", "items": [{"i":"🌶️","n":"Pul Biber"},{"i":"🧂","n":"Karabiber"},{"i":"🌿","n":"Kekik"},{"i":"🌾","n":"Kimyon"},{"i":"🔴","n":"Sumak"},{"i":"🍂","n":"Tarcin"},{"i":"🟡","n":"Kori/Zerdacal"},{"i":"⚪","n":"Susam/Corek Otu"}] },
+      { "name": "Soslar", "items": [{"i":"🧪","n":"Nar Eksisi"},{"i":"🍾","n":"Sirke"},{"i":"🍋","n":"Limon Sosu"},{"i":"📦","n":"Bulyon"},{"i":"🥫","n":"Ketcap"},{"i":"🥫","n":"Mayonez"}] }
+    ]
+  },
+  {
+    "title": "Kasap & Tavuk",
+    "icon": "🥩",
+    "subs": [
+      { "name": "Et Çeşitleri", "items": [{"i":"🥩","n":"Kiyma"},{"i":"🥩","n":"Kusbasi"},{"i":"🥩","n":"Antrikot"},{"i":"🥩","n":"Pirzola"},{"i":"🥩","n":"Ciger"},{"i":"🍗","n":"Gogus"},{"i":"🍗","n":"Baget"},{"i":"🍗","n":"Kanat"},{"i":"🐟","n":"Balik"}] }
+    ]
+  },
+  {
+    "title": "Temizlik & Kağıt",
+    "icon": "🧼",
+    "subs": [
+      { "name": "Deterjan", "items": [{"i":"🧼","n":"Camasir Det."},{"i":"🧽","n":"Bulasi Tab."},{"i":"🧴","n":"Yumusatici"},{"i":"🧪","n":"Camasir Suyu"},{"i":"🪠","n":"Yuzey Temiz."},{"i":"🧴","n":"Arap Sabunu"}] },
+      { "name": "Kağıt Grubu", "items": [{"i":"🧻","n":"Tuvalet Kagidi"},{"i":"🧻","n":"Kagit Havlu"},{"i":"🤧","n":"Pecete"},{"i":"🧷","n":"Islak Mendil"}] }
+    ]
+  },
+  {
+    "title": "Kişisel Bakım",
+    "icon": "🧴",
+    "subs": [
+      { "name": "Banyo", "items": [{"i":"🧴","n":"Sampuan"},{"i":"🧴","n":"Dus Jeli"},{"i":"🧼","n":"Sivi Sabun"},{"i":"🪥","n":"Dis Macunu/Firca"},{"i":"🧴","n":"Deodorant"},{"i":"🪒","n":"Jilet"}] }
+    ]
+  },
+  {
+    "title": "Ev & Hırdavat",
+    "icon": "🔋",
+    "subs": [
+      { "name": "Mutfak Sarf", "items": [{"i":"🗑️","n":"Cop Poseti"},{"i":"🎞️","n":"Strec Film"},{"i":"🔥","n":"Pisirme Kagidi"},{"i":"🎞️","n":"Aluminyum Folyo"}] },
+      { "name": "Teknik", "items": [{"i":"🔋","n":"Pil (AA)"},{"i":"🔋","n":"Pil (AAA)"},{"i":"💡","n":"Ampul"},{"i":"🕯️","n":"Mum/Kibrit"}] }
+    ]
+  },
+  {
+    "title": "İçecek & Atıştırmalık",
+    "icon": "🥤",
+    "subs": [
+      { "name": "İçecekler", "items": [{"i":"☕","n":"Cay"},{"i":"☕","n":"Kahve"},{"i":"💧","n":"Su"},{"i":"🥤","n":"Kola"},{"i":"🥤","n":"Fanta/Gazoz"},{"i":"🧊","n":"Soda"},{"i":"🧃","n":"Meyve Suyu"},{"i":"🧊","n":"Ice Tea"}] },
+      { "name": "Abur Cubur", "items": [{"i":"🍫","n":"Cikolata"},{"i":"🍫","n":"Gofret"},{"i":"🍪","n":"Biskuvi"},{"i":"🍿","n":"Cips"},{"i":"🥜","n":"Kuruyemis"},{"i":"🧁","n":"Kek"},{"i":"🥨","n":"Kraker"},{"i":"🍬","n":"Sekerleme"}] }
+    ]
+  }
+]
