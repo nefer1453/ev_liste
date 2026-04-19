@@ -6,7 +6,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Fresh Market v14</title>
+    <title>Fresh Market v15</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
@@ -19,7 +19,6 @@
         .management-btn { border-left: 8px solid #f97316 !important; background: #fff7ed; }
         header { padding-top: env(safe-area-inset-top); }
         footer { padding-bottom: env(safe-area-inset-bottom); }
-        /* Kaydırma çubuğunu gizle ama kaydırmayı koru */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -29,7 +28,7 @@
         <header class="bg-white shadow-sm flex items-center justify-between px-6 z-50">
             <div class="flex flex-col text-left">
                 <h1 class="text-lg font-bold italic text-emerald-950 leading-none">FRESH MARKET</h1>
-                <span class="text-[8px] font-black text-slate-400 tracking-widest uppercase mt-1">Stabil Mod v14</span>
+                <span class="text-[8px] font-black text-slate-400 tracking-widest uppercase mt-1">Sipariş Notu v15</span>
             </div>
             <div class="flex items-center gap-2">
                 <button @click="showManager = !showManager; openGroup = null" 
@@ -43,8 +42,8 @@
         <div class="bg-slate-50 border-t border-slate-100 flex items-center px-4 z-40">
             <div class="relative w-full">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300">🔍</span>
-                <input type="search" x-model="searchTerm" placeholder="Ürün ara..." 
-                       class="w-full h-10 pl-10 pr-4 bg-white rounded-lg border border-slate-200 text-sm focus:border-emerald-400 outline-none">
+                <input type="search" x-model="searchTerm" placeholder="Ürün veya reyon ara..." 
+                       class="w-full h-10 pl-10 pr-4 bg-white rounded-lg border border-slate-200 text-sm focus:border-emerald-400 outline-none transition-all">
             </div>
         </div>
 
@@ -118,12 +117,12 @@
             <div class="flex flex-nowrap gap-2 overflow-x-auto pb-2 no-scrollbar items-center min-h-[45px] w-full">
                 <template x-for="(item, index) in items" :key="index">
                     <button @click="removeItem(index)" 
-                            class="flex-shrink-0 whitespace-nowrap bg-slate-900 text-white text-[9px] font-black px-3 py-1.5 rounded-full flex items-center gap-2 border border-slate-700 active:bg-red-900 transition-colors">
+                            class="flex-shrink-0 whitespace-nowrap bg-slate-900 text-white text-[9px] font-black px-4 py-1.5 rounded-full flex items-center gap-2 border border-slate-700">
                         <span x-text="item"></span> 
                         <span class="text-red-400 font-bold">✕</span>
                     </button>
                 </template>
-                <div x-show="items.length === 0" class="text-[10px] text-slate-300 italic px-2 whitespace-nowrap">Ürün ekleyin...</div>
+                <div x-show="items.length === 0" class="text-[10px] text-slate-300 italic px-2">Ürün ekleyin...</div>
             </div>
             
             <button @click="shareList()" class="w-full bg-[#16a34a] text-white p-4 rounded-2xl font-black shadow-lg flex justify-between items-center px-6 active:scale-95 transition-all text-xs">
@@ -135,16 +134,23 @@
 
     <div x-show="showModal" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-emerald-950/80 backdrop-blur-sm">
         <div class="bg-white w-full max-w-xs rounded-[2rem] p-8 shadow-2xl border border-emerald-100">
-            <h3 class="text-lg font-bold text-center mb-6 text-emerald-950 uppercase tracking-tighter" x-text="selectedItem"></h3>
+            <h3 class="text-lg font-bold text-center mb-4 text-emerald-950 uppercase tracking-tighter" x-text="selectedItem"></h3>
+            
+            <div class="mb-6">
+                <label class="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Ürün Notu (Opsiyonel)</label>
+                <input type="text" x-model="userNote" placeholder="Örn: İnce kabuklu olsun..." 
+                       class="w-full h-10 px-4 bg-slate-50 rounded-xl border border-slate-100 text-xs focus:border-emerald-400 outline-none">
+            </div>
+
             <div class="grid grid-cols-3 gap-3">
                 <template x-for="n in [1,2,3,4,5,10]">
-                    <button @click="confirmAdd(n + ' Adet')" class="bg-slate-50 p-4 rounded-xl font-bold active:bg-emerald-600 active:text-white border border-slate-100 transition-all" x-text="n"></button>
+                    <button @click="confirmAdd(n + ' Adet')" class="bg-slate-50 p-4 rounded-xl font-bold active:bg-emerald-600 active:text-white border border-slate-100" x-text="n"></button>
                 </template>
-                <button @click="confirmAdd('0.5 KG')" class="bg-blue-50 p-4 rounded-xl font-bold text-blue-600 text-[10px] border border-blue-100">0.5 KG</button>
-                <button @click="confirmAdd('1 KG')" class="bg-blue-50 p-4 rounded-xl font-bold text-blue-600 text-[10px] border border-blue-100">1 KG</button>
-                <button @click="confirmAdd('Paket')" class="bg-orange-50 p-4 rounded-xl font-bold text-orange-600 text-[10px] border border-orange-100 uppercase">Paket</button>
+                <button @click="confirmAdd('0.5 KG')" class="bg-blue-50 p-4 rounded-xl font-bold text-blue-600 text-[10px]">0.5 KG</button>
+                <button @click="confirmAdd('1 KG')" class="bg-blue-50 p-4 rounded-xl font-bold text-blue-600 text-[10px]">1 KG</button>
+                <button @click="confirmAdd('Paket')" class="bg-orange-50 p-4 rounded-xl font-bold text-orange-600 text-[10px] uppercase">Paket</button>
             </div>
-            <button @click="showModal = false" class="w-full text-slate-400 mt-6 font-bold text-[10px] uppercase text-center tracking-widest">Kapat</button>
+            <button @click="showModal = false" class="w-full text-slate-400 mt-6 font-bold text-[10px] uppercase text-center tracking-widest">İptal</button>
         </div>
     </div>
 
@@ -152,7 +158,7 @@
         function app() {
             return {
                 menu: [], visibleProducts: [], searchTerm: '', openGroup: null, showModal: false, selectedItem: '', showManager: false,
-                items: JSON.parse(localStorage.getItem('eksikler') || '[]'),
+                userNote: '', // YENİ: Kullanıcı notu için state
                 async loadData() {
                     const res = await fetch('data.json');
                     this.menu = await res.json();
@@ -195,8 +201,21 @@
                     return subItems.filter(item => this.visibleProducts.includes(item.n) && 
                          (item.n.toLowerCase().includes(this.searchTerm.toLowerCase()) || this.searchTerm === ''));
                 },
-                askAmount(name) { this.selectedItem = name; this.showModal = true; },
-                confirmAdd(amount) { this.items.unshift(this.selectedItem + " (" + amount + ")"); this.save(); this.showModal = false; },
+                askAmount(name) { 
+                    this.selectedItem = name; 
+                    this.userNote = ''; // Modal açılınca notu sıfırla
+                    this.showModal = true; 
+                },
+                confirmAdd(amount) { 
+                    // Not varsa miktar sonuna ekle
+                    let finalName = this.selectedItem + " (" + amount + ")";
+                    if (this.userNote.trim() !== '') {
+                        finalName += " - " + this.userNote.trim();
+                    }
+                    this.items.unshift(finalName); 
+                    this.save(); 
+                    this.showModal = false; 
+                },
                 removeItem(index) { this.items.splice(index, 1); this.save(); },
                 clearAll() { if(confirm('Sıfırla?')) { this.items = []; this.save(); } },
                 save() { localStorage.setItem('eksikler', JSON.stringify(this.items)); },
