@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json?v=17">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Fresh Market v16</title>
+    <title>Fresh Market v17</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
@@ -26,15 +26,15 @@
     <div class="app-grid">
         <header class="bg-white shadow-sm flex items-center justify-between px-6 z-50">
             <div class="flex flex-col text-left">
-                <h1 class="text-lg font-bold italic text-emerald-950 leading-none uppercase">Fresh Market</h1>
-                <span class="text-[8px] font-black text-slate-400 tracking-widest uppercase mt-1">Stabil v16</span>
+                <h1 class="text-lg font-bold italic text-emerald-950 leading-none uppercase">FRESH MARKET</h1>
+                <span class="text-[8px] font-black text-slate-400 tracking-widest mt-1">ULTRA STABIL v17</span>
             </div>
             <div class="flex items-center gap-2">
                 <button @click="showManager = !showManager; openGroup = null" 
-                        class="bg-orange-50 text-orange-600 p-2.5 rounded-xl text-[9px] font-black uppercase border border-orange-100 active:scale-95 transition-all">
+                        class="bg-orange-50 text-orange-600 p-2.5 rounded-xl text-[9px] font-black border border-orange-100 uppercase">
                     <span x-text="showManager ? '🛒 LİSTE' : '⚙️ YÖNET'"></span>
                 </button>
-                <button @click="clearAll()" class="bg-red-50 text-red-500 p-2.5 rounded-xl text-[9px] font-black uppercase border border-red-100 active:scale-95 transition-all text-red-600 font-bold italic text-emerald-900 leading-none">Sıfırla</button>
+                <button @click="clearAll()" class="bg-red-50 text-red-500 p-2.5 rounded-xl text-[9px] font-black border border-red-100 uppercase">Sıfırla</button>
             </div>
         </header>
 
@@ -42,7 +42,7 @@
             <div class="relative w-full">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300">🔍</span>
                 <input type="search" x-model="searchTerm" placeholder="Ürün ara..." 
-                       class="w-full h-10 pl-10 pr-4 bg-white rounded-lg border border-slate-200 text-sm focus:border-emerald-400 outline-none">
+                       class="w-full h-10 pl-10 pr-4 bg-white rounded-lg border border-slate-200 text-sm outline-none">
             </div>
         </div>
 
@@ -60,7 +60,7 @@
                                         <h3 class="text-[9px] font-bold text-orange-700 mb-2 border-b" x-text="sub.name"></h3>
                                         <div class="grid grid-cols-1 gap-1"><template x-for="item in sub.items">
                                             <label class="bg-white p-3 rounded-lg flex justify-between items-center border">
-                                                <span class="text-[10px] font-bold" x-text="item.n"></span>
+                                                <span class="text-[10px] font-bold uppercase" x-text="item.n"></span>
                                                 <input type="checkbox" :checked="isProductVisible(item.n)" @change="toggleProductVisibility(item.n)" class="w-5 h-5">
                                             </label>
                                         </template></div>
@@ -76,15 +76,15 @@
                         <template x-for="(main, mIdx) in filteredMenu()" :key="mIdx">
                             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
                                 <button @click="openGroup === mIdx ? openGroup = null : openGroup = mIdx" class="w-full p-5 flex justify-between items-center" :class="openGroup === mIdx ? 'active-btn' : ''">
-                                    <div class="flex items-center gap-4"><span class="text-3xl" x-text="main.icon"></span><span class="font-bold text-[12px]" x-text="main.title"></span></div>
+                                    <div class="flex items-center gap-4"><span class="text-3xl" x-text="main.icon"></span><span class="font-bold text-[12px] uppercase" x-text="main.title"></span></div>
                                 </button>
                                 <div x-show="openGroup === mIdx" x-cloak class="p-4 bg-slate-50 border-t border-slate-100 space-y-6">
                                     <template x-for="sub in main.subs"><div x-show="filteredVisibleItems(sub.items).length > 0">
-                                        <h3 class="text-[9px] font-bold text-emerald-800 mb-3 border-b" x-text="sub.name"></h3>
+                                        <h3 class="text-[9px] font-bold text-emerald-800 mb-3 border-b uppercase" x-text="sub.name"></h3>
                                         <div class="grid grid-cols-3 gap-2"><template x-for="item in filteredVisibleItems(sub.items)">
                                             <button @click="askAmount(item.n)" class="bg-white p-3 rounded-2xl border flex flex-col items-center active:scale-90 shadow-sm transition-all">
                                                 <span class="text-2xl" x-text="item.i"></span>
-                                                <span class="text-[8px] font-black mt-1 text-center" x-text="item.n"></span>
+                                                <span class="text-[8px] font-black mt-1 text-center uppercase" x-text="item.n"></span>
                                             </button>
                                         </template></div>
                                     </div></template>
@@ -99,35 +99,34 @@
         <footer class="bg-white border-t p-3 flex flex-col justify-between shadow-2xl z-50 overflow-hidden">
             <div class="flex flex-nowrap gap-2 overflow-x-auto pb-2 no-scrollbar items-center min-h-[45px] w-full">
                 <template x-for="(item, index) in items" :key="index">
-                    <button @click="removeItem(index)" class="flex-shrink-0 whitespace-nowrap bg-slate-900 text-white text-[9px] font-black px-4 py-1.5 rounded-full flex items-center gap-2 border border-slate-700">
-                        <span x-text="item"></span> <span class="text-red-400 font-bold">✕</span>
+                    <button @click="removeItem(index)" class="flex-shrink-0 bg-slate-900 text-white text-[9px] font-black px-4 py-1.5 rounded-full flex items-center gap-2">
+                        <span x-text="item"></span> <span class="text-red-400">✕</span>
                     </button>
                 </template>
-                <div x-show="items.length === 0" class="text-[10px] text-slate-300 italic px-2">Ürün ekleyin...</div>
             </div>
-            <button @click="shareList()" class="w-full bg-[#16a34a] text-white p-4 rounded-2xl font-black shadow-lg flex justify-between items-center px-6 active:scale-95 transition-all text-xs">
-                <span class="uppercase tracking-widest">WhatsApp Gönder</span>
-                <span class="bg-white/20 px-2 py-0.5 rounded-lg" x-text="items.length"></span>
+            <button @click="shareList()" class="w-full bg-[#16a34a] text-white p-4 rounded-2xl font-black shadow-lg flex justify-between items-center px-6 active:scale-95 transition-all text-xs uppercase tracking-widest">
+                <span>WhatsApp Gönder</span>
+                <span class="bg-white/20 px-2 py-0.5 rounded-lg font-bold" x-text="items.length"></span>
             </button>
         </footer>
     </div>
 
     <div x-show="showModal" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-emerald-950/80 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-xs rounded-[2rem] p-8 shadow-2xl border border-emerald-100">
+        <div class="bg-white w-full max-w-xs rounded-[2rem] p-8 shadow-2xl">
             <h3 class="text-lg font-bold text-center mb-4 text-emerald-950 uppercase" x-text="selectedItem"></h3>
             <div class="mb-6">
                 <label class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Ürün Notu</label>
                 <input type="text" x-model="userNote" placeholder="..." class="w-full h-10 px-4 bg-slate-50 rounded-xl border text-xs focus:border-emerald-400 outline-none">
             </div>
             <div class="grid grid-cols-3 gap-3">
-                <template x-for="n in [1,2,3,4,5,10]">
-                    <button @click="confirmAdd(n + ' Adet')" class="bg-slate-50 p-4 rounded-xl font-bold active:bg-emerald-600 active:text-white" x-text="n"></button>
+                <template x-for="val in [1,2,3,4,5,10]">
+                    <button @click="confirmAdd(val + ' Adet')" class="bg-slate-50 p-4 rounded-xl font-bold active:bg-emerald-600 active:text-white" x-text="val"></button>
                 </template>
                 <button @click="confirmAdd('0.5 KG')" class="bg-blue-50 p-4 rounded-xl font-bold text-blue-600 text-[10px]">0.5 KG</button>
                 <button @click="confirmAdd('1 KG')" class="bg-blue-50 p-4 rounded-xl font-bold text-blue-600 text-[10px]">1 KG</button>
                 <button @click="confirmAdd('Paket')" class="bg-orange-50 p-4 rounded-xl font-bold text-orange-600 text-[10px] uppercase">Paket</button>
             </div>
-            <button @click="showModal = false" class="w-full text-slate-400 mt-6 font-bold text-[10px] uppercase text-center">İptal</button>
+            <button @click="showModal = false" class="w-full text-slate-400 mt-6 font-bold text-[10px] uppercase text-center">İptal / Kapat</button>
         </div>
     </div>
 
@@ -136,7 +135,7 @@
             return {
                 menu: [], visibleProducts: [], searchTerm: '', openGroup: null, showModal: false, selectedItem: '', showManager: false, userNote: '',
                 async loadData() {
-                    const res = await fetch('data.json');
+                    const res = await fetch('data.json?v=' + Date.now());
                     this.menu = await res.json();
                     this.initVisibleProducts();
                 },
@@ -174,17 +173,17 @@
                     let f = this.selectedItem + " (" + a + ")";
                     if (this.userNote.trim() !== '') { f += " - " + this.userNote.trim(); }
                     this.items.unshift(f);
-                    this.save();
-                    this.showModal = false; // İŞTE BU SATIR EKRANI KAPATIYOR!
+                    localStorage.setItem('eksikler', JSON.stringify(this.items));
+                    this.showModal = false; // KESİN KAPATMA KOMUTU
                 },
-                removeItem(i) { this.items.splice(i, 1); this.save(); },
-                clearAll() { if(confirm('Sıfırla?')) { this.items = []; this.save(); } },
-                save() { localStorage.setItem('eksikler', JSON.stringify(this.items)); },
+                removeItem(i) { this.items.splice(i, 1); localStorage.setItem('eksikler', JSON.stringify(this.items)); },
+                clearAll() { if(confirm('Sıfırla?')) { this.items = []; localStorage.setItem('eksikler', JSON.stringify(this.items)); } },
                 shareList() {
                     if(this.items.length === 0) return alert('Liste boş!');
                     let t = "🛒 *MARKET LİSTESİ*\n\n" + this.items.map(i => "✅ " + i).join("\n");
                     window.open("https://wa.me/?text=" + encodeURIComponent(t));
-                }
+                },
+                items: JSON.parse(localStorage.getItem('eksikler') || '[]')
             }
         }
     </script>
